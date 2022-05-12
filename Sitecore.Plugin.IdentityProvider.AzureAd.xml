@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <Sitecore>
+    <ExternalIdentityProviders>
+      <IdentityProviders>
+        <AzureAd type="Sitecore.Plugin.IdentityProviders.IdentityProvider, Sitecore.Plugin.IdentityProviders">
+          <AuthenticationScheme>IdS4-AzureAd</AuthenticationScheme>
+          <DisplayName>Azure AD</DisplayName>
+          <Enabled>true</Enabled>
+          <ClientId>1e95c5a7-713e-47b9-add7-220cf10d74c9</ClientId>
+          <TenantId>8b3dd73e-4e72-4679-b191-56da1588712b</TenantId>
+          <MetadataAddress></MetadataAddress>
+          <ClaimsTransformations>
+            <!--Place transformation rules here. -->
+            <ClaimsTransformation1 type="Sitecore.Plugin.IdentityProviders.DefaultClaimsTransformation, Sitecore.Plugin.IdentityProviders">
+              <SourceClaims>
+                <Claim1 type="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn" />
+              </SourceClaims>
+              <NewClaims>
+                <Claim1 type="email" />
+              </NewClaims>
+            </ClaimsTransformation1 >
+            <ClaimsTransformation2 type="Sitecore.Plugin.IdentityProviders.DefaultClaimsTransformation, Sitecore.Plugin.IdentityProviders">
+              <SourceClaims>
+                <Claim1 type="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress" />
+              </SourceClaims>
+              <NewClaims>
+                <Claim1 type="email" />
+              </NewClaims>
+            </ClaimsTransformation2>
+            <ClaimsTransformation3 type="Sitecore.Plugin.IdentityProviders.DefaultClaimsTransformation, Sitecore.Plugin.IdentityProviders">
+              <SourceClaims>
+                <Claim1 type="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" />
+              </SourceClaims>
+              <NewClaims>
+                <Claim1 type="Name" />
+              </NewClaims>
+            </ClaimsTransformation3>            
+            <!--Transformation samples-->
+            <!--AzureAD user group to Sitecore role transformation.-->
+            <!--<AzureGroupTransformation type="Sitecore.Plugin.IdentityProviders.DefaultClaimsTransformation, Sitecore.Plugin.IdentityProviders">
+              <SourceClaims>
+                <Claim1 type="groups" value="1331bcbc-1906-4caf-8592-b8ad1786dde4" />
+              </SourceClaims>
+              <NewClaims>
+                <Claim1 type="role" value="sitecore\Author" />
+              </NewClaims>
+            </AzureGroupTransformation>-->
+            <AzureGroupTransformation type="Sitecore.Plugin.IdentityProviders.DefaultClaimsTransformation, Sitecore.Plugin.IdentityProviders">
+              <SourceClaims>
+                <!-- Web Systems (68050) - SEC - HealthPlan Web Solutions VSTS Object Id -->
+                <Claim1 type="groups" value="1331bcbc-1906-4caf-8592-b8ad1786dde4" />
+              </SourceClaims>
+              <NewClaims>
+                <Claim1 type="http://www.sitecore.net/identity/claims/isAdmin" value="true"/>
+              </NewClaims>
+            </AzureGroupTransformation>
+            <!--AzureAD user in specific group to Sitecore admin user transformation-->
+            <AzureADUserToAdminUser type="Sitecore.Plugin.IdentityProviders.DefaultClaimsTransformation, Sitecore.Plugin.IdentityProviders">
+              <SourceClaims>
+                <!-- HealthPlan-ISAAdmins Object Id -->
+                <Claim1 type="groups" value="6d8f7200-ccff-4157-9731-8e5a50f87c15" />
+              </SourceClaims>
+              <NewClaims>
+                <Claim1 type="http://www.sitecore.net/identity/claims/isAdmin" value="true"/>
+              </NewClaims>
+            </AzureADUserToAdminUser>
+          </ClaimsTransformations>
+        </AzureAd>
+      </IdentityProviders>
+    </ExternalIdentityProviders>
+  </Sitecore>
+</Settings>
